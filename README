@@ -1,0 +1,4 @@
+These are the files of different nodes in the smart home network
+
+The purpose is to control relays and other things remotely via 
+microcontrollers that are in turn controlled by a rasberry pi

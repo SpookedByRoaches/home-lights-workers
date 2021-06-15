@@ -1,13 +1,9 @@
 #include <ESP8266WiFi.h>
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
+#include "credentials.h"
 
-#define WLAN_SSID "REDACTED"
-#define WLAN_PASS "REDACTED"
-#define MQTT_SERVER "REDACTED"
-#define MQTT_PORT 1883
-#define MQTT_USERNAME "NOT TODAY"
-#define MQTT_PASSWORD "BUDDY"
+
 #define RELAY_PIN D7
 #define ON_COMMAND "on"
 #define OFF_COMMAND "off"
@@ -15,10 +11,12 @@
 WiFiClient client;
 
 Adafruit_MQTT_Client mqtt(&client, MQTT_SERVER, MQTT_PORT, MQTT_USERNAME, MQTT_PASSWORD);
-Adafruit_MQTT_Publish relay_state = Adafruit_MQTT_Publish(&mqtt, "REDACTED");
+Adafruit_MQTT_Publish relay_state = Adafruit_MQTT_Publish(&mqtt, "lights/D7/state");
 
-Adafruit_MQTT_Subscribe relay_command = Adafruit_MQTT_Subscribe(&mqtt, "REDACTED");
-/*************************** Sketch Code ************************************/
+Adafruit_MQTT_Subscribe relay_command = Adafruit_MQTT_Subscribe(&mqtt, "lights/D7");
+
+
+
 void MQTT_connect();
 void setup()
 {
@@ -28,8 +26,7 @@ void setup()
   digitalWrite(RELAY_PIN, HIGH);
   Serial.begin(115200);
   delay(10);
-  Serial.println(F("RPi-ESP-MQTT"));
-  // Connect to WiFi access point.
+  
   Serial.println();
   Serial.println();
   Serial.print("Connecting to ");
